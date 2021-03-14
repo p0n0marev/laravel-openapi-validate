@@ -4,7 +4,7 @@ OpenAPI API testing in Laravel projects.
 
 ## Instalation
 
-`composer require p0n0marev/laravel-openapi-validate`
+`composer require p0n0marev/laravel-openapi-validate` --dev
 
 ## Use
 

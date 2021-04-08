@@ -35,17 +35,19 @@ trait OpenApiSchemaValidate
     {
         $response = parent::call($method, $uri, $parameters, $cookies, $files, $server, $content);
 
-        $response = $this->convertResponse($response);
+        if($response instanceof JsonResponse) {
+            $response = $this->convertResponse($response);
 
-        $operation = new OperationAddress($uri, strtolower($method));
+            $operation = new OperationAddress($uri, strtolower($method));
 
-        $schemaValid = false;
-        try {
-            $this->responseValidator->validate($operation, $response);
-            $schemaValid = true;
-        } catch ( ValidationFailed $e ) {
-            return PHPUnit::fail($e->getMessage());
+            $schemaValid = false;
+            try {
+                $this->responseValidator->validate($operation, $response);
+                $schemaValid = true;
+            } catch ( ValidationFailed $e ) {
+                return PHPUnit::fail($e->getMessage());
+            }
+            $this->assertTrue($schemaValid);
         }
-        $this->assertTrue($schemaValid);
     }
 }

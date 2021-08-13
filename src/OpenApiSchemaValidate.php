@@ -33,10 +33,10 @@ trait OpenApiSchemaValidate
 
     public function call($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
     {
-        $response = parent::call($method, $uri, $parameters, $cookies, $files, $server, $content);
+        $originalResponse = parent::call($method, $uri, $parameters, $cookies, $files, $server, $content);
 
         if($response instanceof JsonResponse) {
-            $response = $this->convertResponse($response);
+            $response = $this->convertResponse($originalResponse);
 
             $operation = new OperationAddress($uri, strtolower($method));
 
@@ -49,5 +49,7 @@ trait OpenApiSchemaValidate
             }
             $this->assertTrue($schemaValid);
         }
+        
+        return $originalResponse;
     }
 }

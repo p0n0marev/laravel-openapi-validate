@@ -49,5 +49,7 @@ trait OpenApiSchemaValidate
             }
             $this->assertTrue($schemaValid);
         }
+        
+        return $response;
     }
 }

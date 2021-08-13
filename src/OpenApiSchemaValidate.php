@@ -35,7 +35,7 @@ trait OpenApiSchemaValidate
     {
         $originalResponse = parent::call($method, $uri, $parameters, $cookies, $files, $server, $content);
 
-        if($response instanceof JsonResponse) {
+        if($originalResponse instanceof JsonResponse) {
             $response = $this->convertResponse($originalResponse);
 
             $operation = new OperationAddress($uri, strtolower($method));
